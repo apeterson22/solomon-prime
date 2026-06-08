@@ -1,0 +1,56 @@
+# Docker Compose for SNN-LNN Hybrid Memory Optimization
+# Target: Edge devices (Jetson Orin, Raspberry Pi, etc.)
+#
+# Usage:
+#   docker compose up -d
+#
+# The SNN-LNN model server runs on port 5001.
+# Configure OpenClaw to use: http://snn-lnn:5001
+
+version: "3.8"
+
+services:
+  snn-lnn:
+    build:
+      context: .
+      dockerfile: extensions/memory-snn-lnn/model/Dockerfile
+    container_name: snn-lnn-server
+    ports:
+      - "5001:5001"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 512M
+    # Uncomment for GPU support on Jetson Orin:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # Optional: OpenClaw gateway with SNN-LNN enabled
+  # Uncomment and configure as needed:
+  # openclaw:
+  #   image: openclaw/openclaw:latest
+  #   container_name: openclaw-gateway
+  #   ports:
+  #     - "18789:18789"
+  #   environment:
+  #     - MEMORY_SNN_LNN_ENDPOINT=http://snn-lnn:5001
+  #   depends_on:
+  #     snn-lnn:
+  #       condition: service_healthy
+  #   restart: unless-stopped

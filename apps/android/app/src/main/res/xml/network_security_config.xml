@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+  <!-- Release default: keep cleartext off unless explicitly allowlisted. -->
+  <base-config cleartextTrafficPermitted="false" />
+
+  <!-- Allow HTTP only for known local/tailnet hostnames. -->
+  <domain-config cleartextTrafficPermitted="true">
+    <domain includeSubdomains="true">openclaw.local</domain>
+  </domain-config>
+  <domain-config cleartextTrafficPermitted="true">
+    <domain includeSubdomains="true">ts.net</domain>
+  </domain-config>
+</network-security-config>

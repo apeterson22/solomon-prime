@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "MOCK PRUSA SLICER CALLED WITH ARGS: \$@"
+for arg in "\$@"; do
+  if [[ "\$arg" == "--export-gcode" ]]; then
+    touch test_output_fdm.gcode
+  elif [[ "\$arg" == "--export-sla" ]]; then
+    touch test_output_sla.sl1
+  fi
+done
+exit 0

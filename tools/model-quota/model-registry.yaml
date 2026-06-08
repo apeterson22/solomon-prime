@@ -1,0 +1,251 @@
+# Model Registry - Auto-switching between free and local models
+# Priority order: free (zero cost) > local (zero token cost)
+
+models:
+  # ── OpenRouter Free Models (:free suffix = zero cost) ──────────────
+  - id: "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
+    name: "nemotron-3-super-120b"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["reasoning", "general", "large-context"]
+    notes: "Large 120B model, good for complex reasoning tasks"
+    priority: 1
+
+  - id: "openrouter/google/gemma-3n-e4b-it:free"
+    name: "gemma-3n-e4b"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 8192
+    strengths: ["general", "fast", "lightweight"]
+    notes: "Google lightweight free model"
+    priority: 2
+
+  - id: "openrouter/deepseek/deepseek-chat-v3-0324:free"
+    name: "deepseek-v3-flash"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 65536
+    strengths: ["coding", "reasoning", "fast"]
+    notes: "Strong coding free model from DeepSeek"
+    priority: 3
+
+  - id: "openrouter/mistralai/mistral-small-3.2-24b-instruct:free"
+    name: "mistral-small-3.2"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 32768
+    strengths: ["general", "fast", "multilingual"]
+    notes: "Mistral free tier model"
+    priority: 4
+
+  - id: "openrouter/moonshotai/kimi-k2.6:free"
+    name: "kimi-k2.6"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["reasoning", "large-context", "chinese"]
+    notes: "Moonshot AI long-context model"
+    priority: 5
+
+  - id: "openrouter/qwen/qwen3.5-4b:free"
+    name: "qwen3.5-4b-free"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["general", "fast", "large-context"]
+    notes: "Qwen lightweight free model"
+    priority: 6
+
+  - id: "openrouter/meta-llama/llama-3.2-3b-instruct:free"
+    name: "llama-3.2-3b-free"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["general", "lightweight", "fast"]
+    notes: "Meta lightweight free model"
+    priority: 7
+
+  - id: "openrouter/google/gemma-2-9b-it:free"
+    name: "gemma-2-9b"
+    provider: openrouter
+    tier: free
+    type: cloud
+    cost_per_1m_tokens: 0
+    context_length: 8192
+    strengths: ["general", "balanced"]
+    notes: "Google Gemma 2 free model"
+    priority: 8
+
+  # ── Local Models (Ollama - zero external cost) ────────────────────
+  - id: "ollama/qwen3.5:4b"
+    name: "qwen3.5-4b"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["general", "reasoning", "large-context"]
+    notes: "Local Qwen 3.5 4B - good general purpose"
+    priority: 10
+
+  - id: "ollama/nemotron-3-nano:4b"
+    name: "nemotron-3-nano"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["reasoning", "general"]
+    notes: "Local NVIDIA Nemotron 3 Nano"
+    priority: 11
+
+  - id: "ollama/qwen2.5-coder:7b"
+    name: "qwen2.5-coder"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["coding", "reasoning"]
+    notes: "Local Qwen coder - best for code generation"
+    priority: 12
+
+  - id: "ollama/llama3.2:3b"
+    name: "llama3.2-3b"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["general", "fast", "lightweight"]
+    notes: "Local Llama 3.2 - fastest local model"
+    priority: 13
+
+  - id: "ollama/gemma4:latest"
+    name: "gemma4-latest"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 8192
+    strengths: ["general", "reasoning"]
+    notes: "Local Gemma 4 latest"
+    priority: 14
+
+  - id: "ollama/deepseek-r1:8b"
+    name: "deepseek-r1-8b"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["reasoning", "complex-tasks"]
+    notes: "Local DeepSeek R1 - strong reasoning, slower"
+    priority: 15
+
+  - id: "ollama/granite4.1:8b"
+    name: "granite4.1-8b"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["general", "reasoning"]
+    notes: "Local IBM Granite 4.1"
+    priority: 16
+
+  - id: "ollama/qwen2.5:7b-instruct"
+    name: "qwen2.5-7b"
+    provider: ollama
+    tier: local
+    type: local
+    cost_per_1m_tokens: 0
+    context_length: 131072
+    strengths: ["general", "instruct"]
+    notes: "Local Qwen 2.5 7B instruct"
+    priority: 17
+
+# ── Switching Policy ─────────────────────────────────────────────────
+policy:
+  # Try free cloud models first (zero cost, no local GPU needed)
+  prefer_free_cloud: true
+  
+  # Fall back to local models if cloud is unavailable
+  fallback_to_local: true
+  
+  # Switch after N consecutive errors from a model
+  error_threshold: 3
+  
+  # Switch if response time exceeds N seconds
+  timeout_threshold: 60
+  
+  # Reset model health scores daily at this hour (UTC)
+  health_reset_hour: 4
+  
+  # Maximum tokens per request budget (to avoid large bills on paid APIs)
+  max_tokens_per_request: 8192
+  
+  # Enable automatic model health checking
+  health_check_enabled: true
+
+# ── Task-to-Model Routing Hints ─────────────────────────────────────
+routing:
+  coding:
+    preferred:
+      - "ollama/qwen2.5-coder:7b"
+      - "openrouter/deepseek/deepseek-chat-v3-0324:free"
+      - "ollama/deepseek-r1:8b"
+    fallback:
+      - "openrouter/qwen/qwen3.5-4b:free"
+      - "ollama/qwen3.5:4b"
+  
+  reasoning:
+    preferred:
+      - "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
+      - "ollama/deepseek-r1:8b"
+      - "openrouter/moonshotai/kimi-k2.6:free"
+    fallback:
+      - "ollama/qwen3.5:4b"
+      - "ollama/granite4.1:8b"
+  
+  general:
+    preferred:
+      - "openrouter/qwen/qwen3.5-4b:free"
+      - "ollama/llama3.2:3b"
+      - "openrouter/meta-llama/llama-3.2-3b-instruct:free"
+    fallback:
+      - "ollama/qwen3.5:4b"
+      - "ollama/nemotron-3-nano:4b"
+  
+  fast:
+    preferred:
+      - "ollama/llama3.2:3b"
+      - "openrouter/meta-llama/llama-3.2-3b-instruct:free"
+      - "openrouter/mistralai/mistral-small-3.2-24b-instruct:free"
+    fallback:
+      - "ollama/qwen3.5:4b"
+      - "openrouter/google/gemma-3n-e4b-it:free"
+  
+  summarization:
+    preferred:
+      - "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
+      - "openrouter/moonshotai/kimi-k2.6:free"
+      - "openrouter/qwen/qwen3.5-4b:free"
+    fallback:
+      - "ollama/qwen3.5:4b"
+      - "ollama/nemotron-3-nano:4b"
