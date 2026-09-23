@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rde-reflex"
+version = "0.1.0"
+description = "RDE-Reflex: provider-neutral reflex decision engine for fast bounded AI decisions"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "RDE-Reflex contributors" }]
+dependencies = [
+  "fastapi>=0.115,<1",
+  "pydantic>=2.8,<3",
+  "uvicorn[standard]>=0.30,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.27,<1",
+  "pytest>=8.3,<9",
+  "pytest-asyncio>=0.24,<1",
+  "ruff>=0.6,<1",
+]
+
+[project.scripts]
+rde-reflex = "rde_reflex.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rde_reflex"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
