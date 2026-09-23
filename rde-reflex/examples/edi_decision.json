@@ -1,0 +1,23 @@
+{
+  "request_id": "edi-example-001",
+  "state": "EDI partner 102 returned a transient timeout. Previous retry succeeded and schema validation passed.",
+  "policy": {
+    "min_confidence": 0.45,
+    "max_normalized_entropy": 1.0,
+    "require_calibrated": false,
+    "max_candidates": 32
+  },
+  "decisions": [
+    {
+      "id": "edi-recovery",
+      "kind": "choice",
+      "instruction": "Choose the bounded recovery option for this known EDI exception.",
+      "candidates": [
+        {"id": "retry", "description": "retry a transient timeout"},
+        {"id": "quarantine", "description": "quarantine a structurally invalid payload"},
+        {"id": "human_review", "description": "send an unusual or unsupported exception to human review"}
+      ]
+    }
+  ],
+  "metadata": {"domain": "edi", "example": true}
+}
